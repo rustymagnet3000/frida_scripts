@@ -1,6 +1,5 @@
 /************************************************************************************/
 // USAGE:  frida -l nsurlprotectionspace_host.js -U -f funky-chicken.com.app --no-pause
-// Ole's guidance: https://github.com/frida/frida/issues/279
 /************************************************************************************/
 const NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
 const protectionSpace = ObjC.classes.NSURLProtectionSpace['- host'];
@@ -21,12 +20,19 @@ finally {
 Interceptor.attach(protectionSpace.implementation, {
 
     onLeave: function (retval) {
-        const host_name_str = new ObjC.Object(retval);
+        const hostname_objc_nsstr = new ObjC.Object(retval);
+
         console.log(JSON.stringify({
             function: 'NSURLProtectionSpace onLeave()',
-            hostname: host_name_str.toString(),
-            type: typeof host_name_str,
+            hostname: hostname_objc_nsstr.toString(),
+            type: typeof hostname_objc_nsstr,
+            frida_type: hostname_objc_nsstr.$className,
+            source_modile: hostname_objc_nsstr.$moduleName,
             retval_addr: retval
         }));
+
+        if(hostname_objc_nsstr.equals(retval)){
+            console.log('successful cast');
+        }
     }
 });
