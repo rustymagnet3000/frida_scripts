@@ -20,11 +20,12 @@ Interceptor.attach(protectionSpace.implementation, {
         var pool = NSAutoreleasePool.alloc().init();
         try {
             var NSLog = new NativeFunction(Module.findExportByName('Foundation', 'NSLog'), 'void', ['pointer', '...']);
-            var nsurl = new ObjC.Object(args[2]);
-            console.log('nsurl type:' + nsurl.$className)
-            var str = NSString.stringWithString_(nsurl.toString());
-            NSLog("🐝woohoo");
-            console.log(str);
+
+            var str = ObjC.classes.NSString.stringWithFormat_('[*]foo ' + 'bar ' + 'lives');     // fails with unicode chars
+            if (str.isKindOfClass_(ObjC.classes.NSString)){
+                console.log('str ' + str + '\ttype:' + str.$className);
+                NSLog(str);
+            }
         }
         catch(err){
             console.error(err.message);
@@ -33,5 +34,17 @@ Interceptor.attach(protectionSpace.implementation, {
             console.log("[*]NSURLProtectionSpace onEnter() script complete");
             pool.release();
         }
+    },
+
+    onLeave: function (retValue) {
+        var nsurl = ObjC.classes.NSURL.URLWithString_('www.foobar.com')
+        if (nsurl.isKindOfClass_(ObjC.classes.NSURL)){
+            console.log('url ' + nsurl + '\ttype:' + nsurl.$className);
+        }
+        console.log(JSON.stringify({
+            function: 'NSURLProtectionSpace onLeave()',
+            urlStr: nsurl,
+            return_value: retValue
+        }));
     }
 });
