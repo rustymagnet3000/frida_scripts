@@ -11,8 +11,10 @@
  
 ##### Enable auto-complete
 ![](.README_images/webstorm_setup_frida_autocomplete.png)
-##### Lessons
+##### Tops for writing Frida Scripts
  - `Module.findExportByName()` returns a `NativePointer`.
+ - To find a `Objective-C method` you can use: `ObjC.classes.NSString.$ownMethods`
+ - To find a `C function` you can use: `DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))`
  - Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."
  - When `foobar` is created like this `const foobar = new ObjC.Object(retval);` it has special properties:
  
@@ -22,5 +24,5 @@
  
     -`foobar.$kind`
     
-    -......and more
+    ......and more
 

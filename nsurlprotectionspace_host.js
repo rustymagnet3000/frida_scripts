@@ -27,7 +27,7 @@ Interceptor.attach(protectionSpace.implementation, {
             hostname: hostname_objc_nsstr.toString(),
             type: typeof hostname_objc_nsstr,
             frida_type: hostname_objc_nsstr.$className,
-            source_modile: hostname_objc_nsstr.$moduleName,
+            source_module: hostname_objc_nsstr.$moduleName,
             retval_addr: retval
         }));
 
