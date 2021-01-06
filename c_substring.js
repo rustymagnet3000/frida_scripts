@@ -1,7 +1,7 @@
 /***********************************************************************************
 char *strstr(const char *haystack, const char *needle);
 FIND EXPORT: DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))
-USAGE:  frida -l substring.js -U -f appname --no-pause
+USAGE:  frida -l c_substring.js -U -f appname --no-pause
 
 
  [*]Frida running. ObjC API available!

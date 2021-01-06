@@ -11,7 +11,7 @@ haystack
 (lldb) po $arg3
 needle <-- where the "frida" string will appear
 
-USAGE:  frida -l nsstring_containsstring.js -U -f appname --no-pause
+USAGE:  frida -l objc_nsstring_containsstring.js -U -f appname --no-pause
 ******************************************************************************/
 var NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
 var containsSubString = ObjC.classes.NSString['- containsSubstring:'];
