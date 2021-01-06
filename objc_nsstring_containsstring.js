@@ -33,14 +33,26 @@ finally {
 
 Interceptor.attach(methodPointer, {
     onEnter: function (args) {
-
         this._needle = new ObjC.Object(args[2]);
+    },
 
-        if(this._needle != '-') {
+    onLeave: function (retval) {
+        if(this._needle != '-' && retval.equals(ptr(0x1))) {
             console.log(JSON.stringify({
-                thread_id: this.threadId,
-                needle: this._needle.toString()
+                needle: this._needle.toString(),
+                retval: 'found'
             }));
         }
     }
 });
+
+
+/*
+
+    "-[NSString containsString:]" pointer:	0x184c7dd8c
+    {"needle":"frida","retval":"found"}
+    {"needle":"frida-gadget","retval":"found"}
+    {"needle":"gdbus","retval":"found"}
+    {"needle":"gum-js-loop","retval":"found"}
+
+ */

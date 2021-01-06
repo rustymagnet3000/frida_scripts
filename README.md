@@ -19,7 +19,7 @@
  - To find a `C function` you can use: `DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))`
 
 ##### Reference Counting
-Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."
+The Frida creator said: _"Never interact with Objective-C APIs without an `autorelease-pool`."_
  
 ##### Special Properties
  -  `foobar` has special properties `const foobar = new ObjC.Object(retval)`:
@@ -55,8 +55,17 @@ needle
         this._needle = new ObjC.Object(args[2]);
  ```
 
+##### Persist instance variables between onEnter() and onLeave()
+```
+onEnter: function (args) {
+    this._needle = new ObjC.Object(args[2]);
 
-   
+
+onLeave: function (retval) {
+    if(this._needle != '-') {
+        // do something
+    }
+```
            
 
 ##### Cheat sheets
