@@ -4,14 +4,23 @@
  
 ## Writing Objective-C Frida Scripts
 ##### Setup
- I used `WebStorm` from Jetbrains to write `Frida Scripts`.  Quite a few other people wrote scripts in `Python` and passed in the `Javascript` as a script.  I liked `WebStorm` as:
+ I used `WebStorm` from Jetbrains to write `Frida Scripts`.  Other people wrote scripts in `Python` and passed in the `Javascript`.  I liked `WebStorm` as:
  
   - Immediate Javascript `syntax feedback`
-  - You can get `auto-complete` for `Frida`
+  - You got `auto-complete` for `Frida`
  
-##### Setup
+##### Enable auto-complete
 ![](.README_images/webstorm_setup_frida_autocomplete.png)
 ##### Lessons
  - `Module.findExportByName()` returns a `NativePointer`.
- - Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."_
+ - Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."
+ - When `foobar` is created like this `const foobar = new ObjC.Object(retval);` it has special properties:
  
+    -`foobar.$className`
+ 
+    -`foobar.$moduleName`
+ 
+    -`foobar.$kind`
+    
+    -......and more
+
