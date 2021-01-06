@@ -16,9 +16,6 @@ NSString
 (lldb) po (char *)$arg3
 needle          <-- where the "frida" string to detect may appear
 
-
-
-
 USAGE:  frida -l objc_nsstring_stringwithutf8string.js -U -f appname --no-pause
 ******************************************************************************/
 

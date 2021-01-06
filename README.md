@@ -2,7 +2,7 @@
 
 
  
-## Writing Objective-C Frida Scripts
+### Writing Objective-C Frida Scripts
 ##### Setup
  I used `WebStorm` from Jetbrains to write `Frida Scripts`.  Other people wrote scripts in `Python` and passed in the `Javascript`.  I liked `WebStorm` as:
  
@@ -11,12 +11,18 @@
  
 ##### Enable auto-complete
 ![](.README_images/webstorm_setup_frida_autocomplete.png)
-##### Tops for writing Frida Scripts
- - `Module.findExportByName()` returns a `NativePointer`.
+
+### Tips for writing Frida Scripts
+##### Find function / methods Address and Module
+
  - To find a `Objective-C method` you can use: `ObjC.classes.NSString.$ownMethods`
  - To find a `C function` you can use: `DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))`
- - Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."
- - When `foobar` is created like this `const foobar = new ObjC.Object(retval);` it has special properties:
+
+##### Reference Counting
+Ole, the creator of Frida, said: _"Never interact with Objective-C APIs without an `autorelease-pool`."
+ 
+##### Special Properties
+ -  `foobar` has special properties `const foobar = new ObjC.Object(retval)`:
  
     -`foobar.$className`
  
@@ -26,6 +32,32 @@
     
     ......and more
 
+##### `lldb` convenience arguments differ to `frida`
+For example:
+ 
+ ```
+-[NSString containsString:]
+
+ -lldb  ---------------------------------
+
+(lldb) po $arg1
+haystack
+
+(lldb) po (char *)$arg2
+"containsString:"
+
+(lldb) po $arg3
+needle
+
+-frida ---------------------------------
+   Interceptor.attach(methodPointer, {
+       onEnter: function (args) {
+        this._needle = new ObjC.Object(args[2]);
+ ```
+
+
+   
+           
 
 ##### Cheat sheets
 https://github.com/iddoeldor/frida-snippets

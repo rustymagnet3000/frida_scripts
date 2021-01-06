@@ -1,5 +1,5 @@
 /*****************************************************************************
--[NSString containsSubstring:]
+-[NSString containsString:]
  Returns a Boolean value indicating whether the string contains a given string by performing a case-sensitive, locale-unaware search.
 
 (lldb) po $arg1
@@ -14,11 +14,12 @@ needle <-- where the "frida" string will appear
 USAGE:  frida -l objc_nsstring_containsstring.js -U -f appname --no-pause
 ******************************************************************************/
 var NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
-var containsSubString = ObjC.classes.NSString['- containsSubstring:'];
+var methodPointer = ObjC.classes.NSString['- containsString:'].implementation;
+
 
 try {
     var pool = NSAutoreleasePool.alloc().init();
-    if (!containsSubString.implementation) {
+    if (!methodPointer) {
         throw new Error('Cannot find method');
     }
 }
@@ -26,15 +27,20 @@ catch(err){
     console.error(err.message);
 }
 finally {
-    console.log('\"-[NSString containsSubstring:]\" pointer:\t' + containsSubString.implementation);
+    console.log('\"-[NSString containsString:]\" pointer:\t' + methodPointer);
     pool.release();
 }
 
-Interceptor.attach(containsSubString.implementation, {
+Interceptor.attach(methodPointer, {
     onEnter: function (args) {
-        console.log('Context  : ' + JSON.stringify(this.context));
-        console.log('ThreadId : ' + this.threadId);
-        this._needle = ObjC.Object(args[3]);
-        console.log('[*]Needle:' + this._needle.toString());
+
+        this._needle = new ObjC.Object(args[2]);
+
+        if(this._needle != '-') {
+            console.log(JSON.stringify({
+                thread_id: this.threadId,
+                needle: this._needle.toString()
+            }));
+        }
     }
 });

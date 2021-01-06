@@ -1,5 +1,5 @@
 /************************************************************************************/
-// USAGE:  frida -l nslog.js -U -f funky-chicken.com.app --no-pause -q
+// USAGE:  frida -l objc_nslog.js -U -f funky-chicken.com.app --no-pause -q
 // Ole's guidance: https://github.com/frida/frida/issues/279
 /************************************************************************************/
 var NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;

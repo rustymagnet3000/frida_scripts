@@ -1,5 +1,5 @@
 /************************************************************************************/
-// USAGE:  frida -l nsurl_and_iskindof.js -U -f funky-chicken.com.app --no-pause
+// USAGE:  frida -l objc_nsurl_and_iskindof.js -U -f funky-chicken.com.app --no-pause
 /************************************************************************************/
 var NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
 var NSURL = ObjC.classes.NSURL;

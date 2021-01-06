@@ -1,5 +1,5 @@
 /***********************************************************************************/
-// USAGE:  frida -l task_thread.js -U -f appname --no-pause
+// USAGE:  frida -l c_task_thread.js -U -f appname --no-pause
 /************************************************************************************/
 
 const module_name = "libsystem_kernel.dylib";

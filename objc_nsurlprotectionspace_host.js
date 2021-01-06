@@ -1,5 +1,5 @@
 /************************************************************************************/
-// USAGE:  frida -l nsurlprotectionspace_host.js -U -f funky-chicken.com.app --no-pause
+// USAGE:  frida -l objc_nsurlprotectionspace_host.js -U -f funky-chicken.com.app --no-pause
 /************************************************************************************/
 const NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
 const protectionSpace = ObjC.classes.NSURLProtectionSpace['- host'];

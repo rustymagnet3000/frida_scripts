@@ -1,6 +1,7 @@
-/***********************************************************************************/
-// CFStringRef CFStringCreateWithCString(CFAllocatorRef alloc, const char *cStr, CFStringEncoding encoding);
-/************************************************************************************/
+/***********************************************************************************
+CFStringRef CFStringCreateWithCString(CFAllocatorRef alloc, const char *cStr, CFStringEncoding encoding);
+ USAGE:  frida -l objc_cfstring.js -U -f appname --no-pause
+***********************************************************************************/
 
 var ptrToCFStr = Module.findExportByName("CoreFoundation", "CFStringCreateWithCString");
 
