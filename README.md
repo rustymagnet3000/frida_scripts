@@ -32,13 +32,22 @@ The Frida creator said: _"Never interact with Objective-C APIs without an `autor
     
     ......and more
 
-##### Memory.readUtf8String can throw errors
-When dealing with `C` character arrays, `Memory.readUtf8String(args[1]);` can throw errors like `Error: can't decode byte 0xda in position 2
-    at /repl19.js:25`.
+##### Reading C Strings can throw errors
+When dealing with `C` character arrays, `Memory.readUtf8String(args[1]);` can `throw` a Javascript error. For example:
 
-To get around this you can use: `Memory.readCString(args[1])`.  You can also limit the size of the read with a size value.
+`Error: can't decode byte 0xda in position 2 at /repl19.js:25`.
 
+You can use: `Memory.readCString(args[1], 20)` to avoid this.  You can even limit the size of the read with an ( optional ) size value.
 
+Or you can handle the error:
+```
+try {
+    this._needle = Memory.readUtf8String(args[1]);
+}
+catch(err){
+    nonDecoableChars++;             // this._needle == Javascript's undefined type
+}
+```
 ##### `lldb` convenience arguments differ to `frida`
 For example:
  
