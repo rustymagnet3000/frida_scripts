@@ -26,10 +26,11 @@ if (ObjC.available) {
         Interceptor.attach(ptrToExport, {
             onEnter: function (args) {
                 try {
-                    this._needle = Memory.readUtf8String(args[1], 20);
+                    this._needle = Memory.readUtf8String(args[1]);
                 }
                 catch(err){
                     nonDecoableChars++;
+                    this._needle = 'failed'
                 }
                 finally {
 
@@ -38,10 +39,11 @@ if (ObjC.available) {
 
             onLeave: function (retValue) {
 
-                if(retValue == '0x0' && this._needle != ''){
+                if(retValue == '0x0' && this._needle != '' && this._needle != 'failed'){
                     console.log(JSON.stringify({
-                        found_needle: this._needle,
-                        non_decodable_strs: nonDecoableChars
+                        found_in_memory: this._needle,
+                        non_decodable_strs: nonDecoableChars,
+                        needle_type:    this._needle
                     }));
                 }
             }
