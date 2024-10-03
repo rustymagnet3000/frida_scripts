@@ -1,18 +1,16 @@
 # Tiny Frida Scripts
 
+## Writing Objective-C Frida Scripts
 
+### Setup
+
+I used `WebStorm` from Jetbrains.  I liked `WebStorm` as you could download the `@types/frida-gum` extension.  This gave auto-complete for Frida objects. So good.
  
-### Writing Objective-C Frida Scripts
-##### Setup
- I used `WebStorm` from Jetbrains to write `Frida Scripts`.  Other people wrote scripts in `Python` and passed in the `Javascript`.  I liked `WebStorm` as:
- 
-  - Immediate Javascript `syntax feedback`
-  - You got `auto-complete` for `Frida`
- 
-##### Enable auto-complete
-![](.README_images/webstorm_setup_frida_autocomplete.png)
+#### Enable auto-complete
+![](.images/webstorm_setup_frida_autocomplete.png)
 
 ### Tips for writing Frida Scripts
+
 ##### Find function / methods Address and Module
 
  - To find a `Objective-C method` you can use: `ObjC.classes.NSString.$ownMethods`
