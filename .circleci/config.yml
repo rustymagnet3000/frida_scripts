@@ -13,8 +13,7 @@ jobs:
   lint_and_style:
     executor: node/default
     steps:
-      - attach_workspace:
-          at: ~/project
+      - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
 
