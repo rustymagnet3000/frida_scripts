@@ -19,7 +19,7 @@ if (ObjC.available) {
                 // 2. The first argument
                 // https://github.com/frida/frida/issues/121
                 var url = new ObjC.Object(args[2]);
-                console.log('URL -> ' + url.toString())
+                console.log('URL -> ' + url.toString());
             }
         });
     } catch (error) {

@@ -15,7 +15,7 @@ try {
             console.log("[*]\t" + this._str);
         }
     });
-    console.log("[*]CFStringCreateWithCString() intercept placed")
+    console.log("[*]CFStringCreateWithCString() intercept placed");
   }
 catch(err){
       console.log("[*]Exception: " + err.message);
