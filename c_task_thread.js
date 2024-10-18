@@ -26,14 +26,14 @@ if (ObjC.available) {
             },
 
             onLeave: function (retValue) {
-                this._patchInt = 4
+                this._patchInt = 4;
                 console.log(JSON.stringify({
                     return_value: retValue,
                     patched_return_value: this._patchInt,
                     function: exp_name,
                     thread_count: this._threadCountPointer.readPointer().toInt32()
                 }));
-                retValue.replace(this._patchInt)
+                retValue.replace(this._patchInt);
             }
         });
     }

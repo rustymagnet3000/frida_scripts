@@ -1,0 +1,19 @@
+{
+  "name": "frida_scripts",
+  "version": "1.0.0",
+  "description": "iOS scripts that use Frida for introspection",
+  "main": "c_access.js",
+  "scripts": {
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rustymagnet3000/frida_scripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rustymagnet3000/frida_scripts/issues"
+  },
+  "homepage": "https://github.com/rustymagnet3000/frida_scripts#readme"
+}

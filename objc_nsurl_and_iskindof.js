@@ -6,7 +6,7 @@ var NSURL = ObjC.classes.NSURL;
 
 try {
     var pool = NSAutoreleasePool.alloc().init();
-    var nsurl = NSURL.URLWithString_('www.foobar.com')
+    var nsurl = NSURL.URLWithString_('www.foobar.com');
     if (nsurl.isKindOfClass_(ObjC.classes.NSURL)){
         console.log('url ' + nsurl + '\ttype:' + nsurl.$className);
     }

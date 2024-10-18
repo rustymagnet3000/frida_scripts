@@ -8,7 +8,7 @@ catch(err){
       console.log("[*]Exception: " + err.message);
 }
 finally {
-    console.log("[+] open() intercept placed")
+    console.log("[+] open() intercept placed");
 }
 
 Interceptor.attach(ptrToOpen, {

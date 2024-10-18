@@ -1,7 +1,7 @@
 console.log('[*] listening For requests...');
 let totalUrls = 0;
 const NSString = ObjC.classes.NSString;
-const evilServer = "https://[server hostname]/images/charizard.png"
+const evilServer = "https://[server hostname]/images/charizard.png";
 
 if (ObjC.available) {
 
