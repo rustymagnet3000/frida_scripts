@@ -2,7 +2,18 @@
 
 ## Setup
 
-I used `WebStorm` from Jetbrains.  I liked `WebStorm` as you could download the `@types/frida-gum` extension.  This gave auto-complete for Frida objects. So good.
+With `WebStorm` - from Jetbrains - download the `@types/frida-gum` extension.  This gave auto-complete.
+
+The Frida team recommend:
+
+> we highly recommend using our TypeScript bindings.
+
+A `typescript` file vs a `javascript` file is a "no brainer":
+
+- Compile time errors; speeds up debugging.
+- Code completion.
+- [Other benefits](https://learnfrida.info/basic_usage/#javascript-vs-typescript).
+
  
 ### Enable auto-complete
 ![](.images/webstorm_setup_frida_autocomplete.png)
@@ -24,7 +35,7 @@ ObjC.classes.NSString.$ownMethods
 ObjC.classes.NSURL.$ownMethods
 ```
 
-##### ObjC.Object Properties
+#### ObjC.Object Properties
 
 ```javascript
 const foobar = new ObjC.Object(retval)
@@ -33,6 +44,19 @@ const foobar = new ObjC.Object(retval)
 // foobar.$kind
 ```
 
+#### API Resolver
+
+```typescript
+const resolver = new ApiResolver('objc');
+const matches = resolver.enumerateMatches('-[NSURL initWithString:]');
+const firstPtr = matches[0].address;
+
+Interceptor.attach(firstPtr, { // code
+// ...
+// ..
+
+```
+`
 #### Find C function
 
 ```javascript
