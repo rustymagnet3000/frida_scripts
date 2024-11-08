@@ -3,13 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
 
-  filter_deployable: &filter_deployable
-    filters:
-      branches:
-        only:
-          - master
 jobs:
-
   lint_and_style:
     executor: node/default
     steps:
@@ -17,7 +11,6 @@ jobs:
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
-
 
 workflows:
   lint:

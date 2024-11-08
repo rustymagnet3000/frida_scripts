@@ -1,34 +1,50 @@
 # Tiny Frida Scripts
 
-## Writing Objective-C Frida Scripts
-
-### Setup
+## Setup
 
 I used `WebStorm` from Jetbrains.  I liked `WebStorm` as you could download the `@types/frida-gum` extension.  This gave auto-complete for Frida objects. So good.
  
-#### Enable auto-complete
+### Enable auto-complete
 ![](.images/webstorm_setup_frida_autocomplete.png)
 
-### Tips for writing Frida Scripts
+## Tips for writing Frida Scripts
 
-##### Find function / methods Address and Module
+### Objective-C
 
- - To find a `Objective-C method` you can use: `ObjC.classes.NSString.$ownMethods`
- - To find a `C function` you can use: `DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))`
+#### Read ObjectiveC function parameters
 
-##### Reference Counting
-The Frida creator said: _"Never interact with Objective-C APIs without an `autorelease-pool`."_
+- 0 = 'self'
+- 1 = The selector string
+- 2 = The first argument
+
+#### List Objective-C methods
+
+```javascript
+ObjC.classes.NSString.$ownMethods
+ObjC.classes.NSURL.$ownMethods
+```
+
+##### ObjC.Object Properties
+
+```javascript
+const foobar = new ObjC.Object(retval)
+// foobar.$className
+// foobar.$moduleName
+// foobar.$kind
+```
+
+#### Find C function
+
+```javascript
+DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))
+```
+
+### Reference Counting
+The Frida author wrote: 
+
+"Never interact with Objective-C APIs without an `autorelease-pool`."_
  
-##### Special Properties
- -  `foobar` has special properties `const foobar = new ObjC.Object(retval)`:
- 
-    -`foobar.$className`
- 
-    -`foobar.$moduleName`
- 
-    -`foobar.$kind`
-    
-    ......and more
+
 
 ##### Reading C Strings can throw errors
 When dealing with `C` character arrays, `Memory.readUtf8String(args[1]);` can `throw` a Javascript error. For example:
