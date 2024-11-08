@@ -4,9 +4,9 @@
 /************************************************************************************/
 var NSAutoreleasePool = ObjC.classes.NSAutoreleasePool;
 var NSString = ObjC.classes.NSString;
+var pool = NSAutoreleasePool.alloc().init();
 
 try {
-    var pool = NSAutoreleasePool.alloc().init();
     var NSLog = new NativeFunction(Module.findExportByName('Foundation', 'NSLog'), 'void', ['pointer', '...']);
     var str = NSString.stringWithFormat_('[*]foo ' + 'bar ' + 'lives');     // fails with unicode chars
     if (str.isKindOfClass_(ObjC.classes.NSString)){
