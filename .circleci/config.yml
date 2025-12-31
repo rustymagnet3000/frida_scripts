@@ -16,6 +16,7 @@ jobs:
   markdownlint:
     executor: node/default
     steps:
+<<<<<<< HEAD
       - checkout:
           method: blobless
       - run:
@@ -24,6 +25,12 @@ jobs:
       - run:
           name: Run markdownlint
           command: npx markdownlint "README.md"
+=======
+      - checkout
+      - run:
+          name: Run markdownlint
+          command: npx markdownlint "**/*.md"
+>>>>>>> 1741a94 (Dec25g)
 
 workflows:
   lint:
