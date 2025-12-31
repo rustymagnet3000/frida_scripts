@@ -45,70 +45,63 @@ A `typescript` file vs a `javascript` file is a no-brainer:
 
 ### Objective-C
 
-#### Read ObjectiveC function parameters
-
+```shell
+# Read ObjectiveC function parameters
 - 0 = 'self'
 - 1 = The selector string
 - 2 = The first argument
 
-#### List Objective-C methods
-
-```javascript
+# List Objective-C methods
 ObjC.classes.NSString.$ownMethods
 ObjC.classes.NSURL.$ownMethods
-```
 
-#### ObjC.Object Properties
 
-```javascript
+# Persist instance variables between onEnter() and onLeave()
+onEnter: function (args) {
+this._needle = new ObjC.Object(args[2]);
+
+onLeave: function (retval) {
+if(this._needle != '-') {
+// do something
+}
+
+# ObjC.Object Properties
 const foobar = new ObjC.Object(retval)
 // foobar.$className
 // foobar.$moduleName
 // foobar.$kind
-```
 
-#### API Resolver
-
-```typescript
+# API Resolver
 const resolver = new ApiResolver('objc');
 const matches = resolver.enumerateMatches('-[NSURL initWithString:]');
 const firstPtr = matches[0].address;
-
 Interceptor.attach(firstPtr, { // code
 // ...
 // ..
 
-```
-`
-#### Find C function
-
-```javascript
+# Find C function
 DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))
-```
 
-### Reference Counting
-The Frida author wrote: 
-
-"Never interact with Objective-C APIs without an `autorelease-pool`."_
+# Reference Counting
+The Frida author wrote "Never interact with Objective-C APIs without an `autorelease-pool`."_
  
-
-
-##### Reading C Strings can throw errors
+# Reading C Strings can throw errors
 When dealing with `C` character arrays, `Memory.readUtf8String(args[1]);` can `throw` a Javascript error. For example:
 
 `Error: can't decode byte 0xda in position 2 at /repl19.js:25`.
 
 You can use: `Memory.readCString(args[1], 20)` to avoid this.  You can even limit the size of the read with an ( optional ) size value.
 
-Or you can handle the error:
-```
+# handle the error
 try {
-    this._needle = Memory.readUtf8String(args[1]);
+this._needle = Memory.readUtf8String(args[1]);
 }
 catch(err){
-    nonDecoableChars++;             // this._needle == Javascript's undefined type
+nonDecoableChars++;             // this._needle == Javascript's undefined type
 }
 ```
+
+
 ##### `lldb` convenience arguments differ to `frida`
 For example:
  
@@ -131,18 +124,6 @@ needle
        onEnter: function (args) {
         this._needle = new ObjC.Object(args[2]);
  ```
-
-##### Persist instance variables between onEnter() and onLeave()
-```
-onEnter: function (args) {
-    this._needle = new ObjC.Object(args[2]);
-
-
-onLeave: function (retval) {
-    if(this._needle != '-') {
-        // do something
-    }
-```
            
 
 ##### Cheat sheets
