@@ -10,31 +10,28 @@
 export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
 
 # frida-server listening on iOS device
-frida -U -l scripts/health.ts -f $BUNDLE_ID
-
-#######################
-# using Node scripts  #
-#######################
-
-# Runs TypeScript type checking only.
-# Verifies Frida run-time APIs don't cause Typescript errors 
-# i.e. error TS2304: Cannot find name 'ObjC'.
-npm run typecheck
-
-# Spawns the target app and prints a console message.
-# Verifies Frida up and running with USB-connected iOS device.
-npm run frida-health
+# note: you don't pass in a .ts file to Frida
+frida -U -l scripts/_health.js -f $BUNDLE_ID
 ```
 
-## TypeScript
+## TypeScript or JavaScript
 
-> we highly recommend using our TypeScript bindings.
+ > ️️ℹ️ With Frida, TypeScript is used for development and code feedback ONLY.
 
-A `typescript` file vs a `javascript` file is a no-brainer:
+The Frida team recommend using the TypeScript bindings;
+compile time errors; faster debugging, code completion.
+When ready to run `frida`, the TypeScript files are transpiled to JavaScript files.
+The `frida-server` on the iOS / macOS device read the JavaScript file
+\[ never the TypeScript file \].  
+[More details](https://learnfrida.info/basic_usage/).
 
-- Compile time errors; speeds up debugging.
-- Code completion.
-- [Other benefits](https://learnfrida.info/basic_usage/#javascript-vs-typescript).
+## Which Frida tool ?
+
+ A few new Frida tools are in play here:
+
+- **frida-gum**             -> tell Typescript about Frida Types
+- **frida-objc-bridge**     -> let Typescript understand the Frida ObjC APIs
+- **frida-compile**         -> transform Typescript to Javascript files
 
 ## WebStorm Troubleshooting
 
@@ -48,15 +45,10 @@ Within the IDE, if you download the `@types/frida-gum` extension
 
 # install to get Frida globals (ObjC, Interceptor, Module, etc.)
 npm install --save-dev typescript @types/frida-gum
+npm install --save-dev frida-objc-bridge
 
-# tsconfig.json
-  # Without this, Frida's ObjC will never resolve.
-  # Explicitly include Frida types
-"moduleResolution": "node"
-"types": ["frida-gum"],
-
-# optional at top of each Typescript file
-/// <reference types="frida-gum" />
+# tool to convert files to Javascript for running
+npm install --save-dev frida-compile
 
 # globals.d.ts includes reference to console function
   # prevents `Cannot find name 'console'`
