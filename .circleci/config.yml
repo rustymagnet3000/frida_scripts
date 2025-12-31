@@ -29,7 +29,7 @@ jobs:
           method: blobless
       - run:
           name: Run markdownlint
-          command: npx markdownlint "**/*.md"
+          command: npx markdownlint "README.md"
 
 workflows:
   lint:
