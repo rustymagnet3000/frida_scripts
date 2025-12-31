@@ -36,16 +36,17 @@ A `typescript` file vs a `javascript` file is a no-brainer:
 - Code completion.
 - [Other benefits](https://learnfrida.info/basic_usage/#javascript-vs-typescript).
 
-
 ## WebStorm Troubleshooting
 
-Frida injects globals at runtime, TS needs typings.  Within the IDE, if you download the `@types/frida-gum` extension ( or use command below ) you could still hit issues:
+Frida injects globals at runtime, TS needs typings.
+Within the IDE, if you download the `@types/frida-gum` extension
+( or use command below ) you could still hit issues:
 
-![](.images/webstorm_setup_frida_autocomplete.png)
+![webstorm_library](.images/webstorm_setup_frida_autocomplete.png)
 
 ```shell
 
-# install to get Frida globals (ObjC, Interceptor, Module, etc.) are not standard JS.
+# install to get Frida globals (ObjC, Interceptor, Module, etc.)
 npm install --save-dev typescript @types/frida-gum
 
 # tsconfig.json
@@ -105,7 +106,8 @@ The Frida author wrote "Never interact with Objective-C APIs without an `autorel
 # Reading C Strings can throw errors
 # Memory.readUtf8String(args[1]);` can `throw`
 # i.e. `Error: can't decode byte 0xda in position 2 at /repl19.js:25`.
-Memory.readCString(args[1], 20) # to avoid this.  You can even limit the size of the read with an ( optional ) size value.
+# to avoid, you can even limit the size of the read with an ( optional ) size value.
+Memory.readCString(args[1], 20) 
 
 # or handle the error
 try {
@@ -113,11 +115,11 @@ try {
 }
 ```
 
+### lldb args differ from Frida
 
-##### `lldb` convenience arguments differ to `frida`
 For example:
- 
- ```
+
+ ```shell
 -[NSString containsString:]
 
  -lldb  ---------------------------------
@@ -136,7 +138,7 @@ needle
        onEnter: function (args) {
         this._needle = new ObjC.Object(args[2]);
  ```
-           
 
-##### Cheat sheets
-https://github.com/iddoeldor/frida-snippets
+### Links
+
+[frida-snippets](https://github.com/iddoeldor/frida-snippets)

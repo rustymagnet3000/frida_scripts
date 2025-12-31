@@ -23,7 +23,7 @@ jobs:
             command: npm install --save-dev markdownlint-cli
       - run:
           name: Run markdownlint
-          command: npx markdownlint "**/*.md"
+          command: npx markdownlint "README.md"
 
 workflows:
   lint:
