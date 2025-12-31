@@ -1,10 +1,10 @@
 {
   "name": "frida_scripts",
   "version": "1.0.0",
-  "description": "iOS scripts that use Frida for introspection",
-  "main": "c_access.js",
+  "description": "Run Health Frida script from inside Webstorm ( not terminal )",
+  "main": "scripts/health.ts",
   "scripts": {
-    "lint": "npx eslint ."
+    "frida-health": "frida -U -l scripts/health.ts -f $BUNDLE_ID"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/rustymagnet3000/frida_scripts/issues"
   },
-  "homepage": "https://github.com/rustymagnet3000/frida_scripts#readme"
+  "homepage": "https://github.com/rustymagnet3000/frida_scripts#readme",
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/frida-gum": "^19.0.1",
+    "eslint": "^9.39.2"
+  }
 }

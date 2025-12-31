@@ -1,14 +1,25 @@
 # Tiny Frida Scripts
 
+## Run a script
+
+```shell
+# set the bundle ID
+  # frida-ps -Uai - list all bundle IDs for USB connected device
+  # grep          : find app you care about
+  # awk           : cut only the bundle ID
+export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
+
+# frida-server listening on iOS device
+frida -U -l health.ts -f $BUNDLE_ID
+```
+
 ## Setup
 
-With `WebStorm` - from Jetbrains - download the `@types/frida-gum` extension.  This gave auto-complete.
-
-The Frida team recommend:
+With `WebStorm` download the `@types/frida-gum` extension.  This give auto-complete.   The Frida team recommend:
 
 > we highly recommend using our TypeScript bindings.
 
-A `typescript` file vs a `javascript` file is a "no brainer":
+A `typescript` file vs a `javascript` file is a no-brainer:
 
 - Compile time errors; speeds up debugging.
 - Code completion.
