@@ -8,12 +8,25 @@ jobs:
     executor: node/default
     steps:
       - checkout:
-          method: full
+          method: blobless
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
+
+  markdownlint:
+    executor: node/default
+    steps:
+      - checkout:
+          method: blobless
+      - run:
+            name: Install dependencies
+            command: npm install --save-dev markdownlint-cli
+      - run:
+          name: Run markdownlint
+          command: npx markdownlint "README.md"
 
 workflows:
   lint:
     jobs:
       - lint_and_style
+      - markdownlint
