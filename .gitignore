@@ -2,3 +2,6 @@ __handlers__/
 .idea/
 node_modules/
 .env
+
+# frida-compile generated files
+__*.js
