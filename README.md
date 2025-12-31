@@ -14,22 +14,24 @@ export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
 frida -U -l scripts/_health.js -f $BUNDLE_ID
 ```
 
-## Reality
+## TypeScript or JavaScript
 
- > ️️ℹ️ TypeScript is used for development and code feedback.
- > TypeScript files are compiled to JavaScript files. 
- 
-The Frida team recommend using the TypeScript bindings; compile time errors; faster debugging, code completion.
+ > ️️ℹ️ With Frida, TypeScript is used for development and code feedback ONLY.
 
-When you are ready to run `frida`, know the output is a JavaScript file passed into the app's process.
+The Frida team recommend using the TypeScript bindings;
+compile time errors; faster debugging, code completion.
+When ready to run `frida`, the TypeScript files are transpiled to JavaScript files.
+The `frida-server` on the iOS / macOS device read the JavaScript file
+\[ never the TypeScript file \].  
+[More details](https://learnfrida.info/basic_usage/).
+
+## Which Frida tool ?
 
  A few new Frida tools are in play here:
 
-    - frida-gum             -> tell Typescript about Frida Types
-    - frida-objc-bridge     -> let Typescript understand the Frida ObjC APIs
-    - frida-compile         -> transform Typescript to Javascript files
-
-https://learnfrida.info/basic_usage/
+- **frida-gum**             -> tell Typescript about Frida Types
+- **frida-objc-bridge**     -> let Typescript understand the Frida ObjC APIs
+- **frida-compile**         -> transform Typescript to Javascript files
 
 ## WebStorm Troubleshooting
 
