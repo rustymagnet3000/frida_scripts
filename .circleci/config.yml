@@ -1,14 +1,14 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@7.2.1
 
 jobs:
   lint_and_style:
     executor: node/default
     steps:
       - checkout:
-          method: blobless
+          method: full
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .

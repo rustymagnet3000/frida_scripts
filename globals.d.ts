@@ -2,8 +2,8 @@ export {};
 
 declare global {
     const console: {
-        log(...args: any[]): void;
-        error(...args: any[]): void;
-        warn(...args: any[]): void;
+        log(...args: string[]): void;
+        error(...args: string[]): void;
+        warn(...args: string[]): void;
     };
 }
