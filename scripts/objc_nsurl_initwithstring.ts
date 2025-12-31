@@ -1,16 +1,11 @@
-/// <reference types="frida-gum" />
+import ObjC from "frida-objc-bridge";
 
-if (!ObjC.available) {
-    console.error("ObjC runtime not available");
-    return;
-}
 
 const resolver = new ApiResolver('objc');
 const matches = resolver.enumerateMatches('-[NSURL initWithString:]');
 
 if (matches.length === 0) {
     console.error("No matches found");
-    return;
 }
 
 Interceptor.attach(matches[0].address, {
@@ -19,3 +14,7 @@ Interceptor.attach(matches[0].address, {
         console.log("URL -> " + url.absoluteString().toString());
     }
 });
+
+if (ObjC.available) {
+    console.info("ObjC runtime available");
+}
