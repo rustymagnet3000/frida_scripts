@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "Node16",
     "lib": ["es2020"],
-    "types": ["frida-gum"],
-    "noEmit": true,
-    "strict": true
+    "strict": true,
+    "noEmit": true
   },
-  "files": [
-    "globals.d.ts",
-    "health.ts",
-  ]
+  "include": [
+    "*.ts",  //  "**/*.ts"
+      "**/*.d.ts"
+    ]
 }

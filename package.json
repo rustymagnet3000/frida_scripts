@@ -5,9 +5,9 @@
   "main": "scripts/health.ts",
   "scripts": {
     "lint": "npx eslint .",
-    "typecheck": "npx tsc --noEmit",
-    "frida-health": "frida -U -l scripts/health.ts -f $BUNDLE_ID",
-    "ts-health": "frida -U -l health.ts -f $BUNDLE_ID"
+    "build": "frida-compile scripts/health.ts -o _health.js -c",
+    "agent": "frida -U -l _health.js -f $BUNDLE_ID",
+    "start": "npm run build && npm run agent"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,8 @@
     "@typescript-eslint/eslint-plugin": "^8.51.0",
     "@typescript-eslint/parser": "^8.51.0",
     "eslint": "^9.39.2",
+    "frida-compile": "^19.0.4",
+    "frida-objc-bridge": "^8.0.5",
     "markdownlint-cli": "^0.47.0",
     "typescript": "^5.9.3"
   }

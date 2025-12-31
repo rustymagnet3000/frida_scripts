@@ -1,3 +1,5 @@
+/// <reference types="frida-gum" />
+
 export {};
 
 declare global {
