@@ -1,12 +1,12 @@
 {
   "name": "frida_scripts",
   "version": "1.0.0",
-  "description": "Run Health Frida script from inside Webstorm ( not terminal )",
+  "description": "Transpile to JavaScript and run Frida scripts from Webstorm ( or terminal )",
   "main": "scripts/health.ts",
   "scripts": {
     "lint": "npx eslint .",
-    "build": "frida-compile scripts/health.ts -o __health.js -c",
-    "agent": "frida -U -l __health.js -f $BUNDLE_ID",
+    "build": "frida-compile scripts/$SCRIPT_NAME.ts -o __$SCRIPT_NAME.js -c",
+    "agent": "frida -U -l __$SCRIPT_NAME.js -f $BUNDLE_ID",
     "start": "npm run build && npm run agent"
   },
   "repository": {

@@ -133,4 +133,5 @@ needle
 
 ### Links
 
-[frida-snippets](https://github.com/iddoeldor/frida-snippets)
+- [ole-example](https://github.com/oleavr/frida-agent-example/)
+- [frida-snippets](https://github.com/iddoeldor/frida-snippets)

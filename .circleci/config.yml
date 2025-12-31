@@ -25,6 +25,12 @@ jobs:
           name: Run markdownlint
           command: npx markdownlint "README.md"
 
+      - checkout:
+          method: blobless
+      - run:
+          name: Run markdownlint
+          command: npx markdownlint "README.md"
+
 workflows:
   lint:
     jobs:
