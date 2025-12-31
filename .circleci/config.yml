@@ -7,7 +7,8 @@ jobs:
   lint_and_style:
     executor: node/default
     steps:
-      - checkout
+      - checkout:
+          method: blobless
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
