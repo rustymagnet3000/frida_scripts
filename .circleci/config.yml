@@ -8,7 +8,7 @@ jobs:
     executor: node/default
     steps:
       - checkout:
-          method: full
+          method: blobless
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
@@ -16,10 +16,11 @@ jobs:
   markdownlint:
     executor: node/default
     steps:
-      - checkout
+      - checkout:
+          method: blobless
       - run:
             name: Install dependencies
-            command: npm ci
+            command: npm install --save-dev markdownlint-cli
       - run:
           name: Run markdownlint
           command: npx markdownlint "**/*.md"
