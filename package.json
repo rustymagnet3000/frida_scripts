@@ -4,7 +4,9 @@
   "description": "Run Health Frida script from inside Webstorm ( not terminal )",
   "main": "scripts/health.ts",
   "scripts": {
-    "frida-health": "frida -U -l scripts/health.ts -f $BUNDLE_ID"
+    "typecheck": "npx tsc --noEmit",
+    "frida-health": "frida -U -l scripts/health.ts -f $BUNDLE_ID",
+    "ts-health": "frida -U -l health.ts -f $BUNDLE_ID"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/frida-gum": "^19.0.1",
-    "eslint": "^9.39.2"
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3"
   }
 }

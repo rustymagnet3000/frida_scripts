@@ -4,13 +4,25 @@
 
 ```shell
 # set the bundle ID
-  # frida-ps -Uai - list all bundle IDs for USB connected device
-  # grep          : find app you care about
-  # awk           : cut only the bundle ID
+  # frida-ps -Uai :   list all bundle IDs for USB connected device
+  # grep          :   find app you care about
+  # awk           :   extract the bundle ID
 export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
 
 # frida-server listening on iOS device
-frida -U -l health.ts -f $BUNDLE_ID
+frida -U -l scripts/health.ts -f $BUNDLE_ID
+
+#######################
+# using Node scripts  #
+#######################
+
+# Runs TypeScript type checking only.
+# Verifies Frida run-time APIs don't cause Typescript errors ( i.e. `error TS2304: Cannot find name 'ObjC'.` )
+npm run typecheck
+
+# Spawns the target app and prints a console message.
+# Verifies Frida up and running with USB-connected iOS device.
+npm run frida-health
 ```
 
 ## Setup

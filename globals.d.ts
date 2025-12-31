@@ -1,7 +1,9 @@
-declare const console: {
-    log(...args: any[]): void;
-    error(...args: any[]): void;
-    warn(...args: any[]): void;
-};
+export {};
 
-declare const __frida_test: number;
+declare global {
+    const console: {
+        log(...args: any[]): void;
+        error(...args: any[]): void;
+        warn(...args: any[]): void;
+    };
+}
