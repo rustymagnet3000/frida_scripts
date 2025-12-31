@@ -17,7 +17,8 @@ frida -U -l scripts/health.ts -f $BUNDLE_ID
 #######################
 
 # Runs TypeScript type checking only.
-# Verifies Frida run-time APIs don't cause Typescript errors ( i.e. `error TS2304: Cannot find name 'ObjC'.` )
+# Verifies Frida run-time APIs don't cause Typescript errors 
+# i.e. error TS2304: Cannot find name 'ObjC'.
 npm run typecheck
 
 # Spawns the target app and prints a console message.
@@ -55,15 +56,12 @@ A `typescript` file vs a `javascript` file is a no-brainer:
 ObjC.classes.NSString.$ownMethods
 ObjC.classes.NSURL.$ownMethods
 
-
 # Persist instance variables between onEnter() and onLeave()
 onEnter: function (args) {
-this._needle = new ObjC.Object(args[2]);
+  this._needle = new ObjC.Object(args[2]);
 
 onLeave: function (retval) {
-if(this._needle != '-') {
-// do something
-}
+if(this._needle != '-') { // some code }
 
 # ObjC.Object Properties
 const foobar = new ObjC.Object(retval)
@@ -86,18 +84,13 @@ DebugSymbol.fromAddress(Module.findExportByName(null, 'strstr'))
 The Frida author wrote "Never interact with Objective-C APIs without an `autorelease-pool`."_
  
 # Reading C Strings can throw errors
-When dealing with `C` character arrays, `Memory.readUtf8String(args[1]);` can `throw` a Javascript error. For example:
+# Memory.readUtf8String(args[1]);` can `throw`
+# i.e. `Error: can't decode byte 0xda in position 2 at /repl19.js:25`.
+Memory.readCString(args[1], 20) # to avoid this.  You can even limit the size of the read with an ( optional ) size value.
 
-`Error: can't decode byte 0xda in position 2 at /repl19.js:25`.
-
-You can use: `Memory.readCString(args[1], 20)` to avoid this.  You can even limit the size of the read with an ( optional ) size value.
-
-# handle the error
+# or handle the error
 try {
-this._needle = Memory.readUtf8String(args[1]);
-}
-catch(err){
-nonDecoableChars++;             // this._needle == Javascript's undefined type
+  this._needle = Memory.readUtf8String(args[1]);
 }
 ```
 
