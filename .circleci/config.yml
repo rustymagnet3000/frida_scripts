@@ -8,7 +8,7 @@ jobs:
     executor: node/default
     steps:
       - checkout:
-          method: blobless
+          method: full
       - run: npm i eslint
       - run: npx eslint --version
       - run: npx eslint .
