@@ -18,6 +18,9 @@ jobs:
     steps:
       - checkout
       - run:
+            name: Install dependencies
+            command: npm ci
+      - run:
           name: Run markdownlint
           command: npx markdownlint "**/*.md"
 
