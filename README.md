@@ -26,9 +26,7 @@ npm run typecheck
 npm run frida-health
 ```
 
-## Setup
-
-With `WebStorm` download the `@types/frida-gum` extension.  This give auto-complete.   The Frida team recommend:
+## TypeScript
 
 > we highly recommend using our TypeScript bindings.
 
@@ -38,11 +36,32 @@ A `typescript` file vs a `javascript` file is a no-brainer:
 - Code completion.
 - [Other benefits](https://learnfrida.info/basic_usage/#javascript-vs-typescript).
 
- 
-### Enable auto-complete
+
+## WebStorm Troubleshooting
+
+Frida injects globals at runtime, TS needs typings.  Within the IDE, if you download the `@types/frida-gum` extension ( or use command below ) you could still hit issues:
+
 ![](.images/webstorm_setup_frida_autocomplete.png)
 
-## Tips for writing Frida Scripts
+```shell
+
+# install to get Frida globals (ObjC, Interceptor, Module, etc.) are not standard JS.
+npm install --save-dev typescript @types/frida-gum
+
+# tsconfig.json
+  # Without this, Frida's ObjC will never resolve.
+  # Explicitly include Frida types
+"moduleResolution": "node"
+"types": ["frida-gum"],
+
+# optional at top of each Typescript file
+/// <reference types="frida-gum" />
+
+# globals.d.ts includes reference to console function
+  # prevents `Cannot find name 'console'`
+```
+
+## Writing Frida Scripts
 
 ### Objective-C
 
