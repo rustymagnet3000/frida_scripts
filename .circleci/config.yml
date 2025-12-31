@@ -13,7 +13,16 @@ jobs:
       - run: npx eslint --version
       - run: npx eslint .
 
+  markdownlint:
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          name: Run markdownlint
+          command: npx markdownlint "**/*.md"
+
 workflows:
   lint:
     jobs:
       - lint_and_style
+      - markdownlint
