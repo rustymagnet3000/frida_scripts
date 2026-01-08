@@ -1,6 +1,10 @@
 // depending on the iOS coder, a Class method or Instance method could be used to create a URL
 // same can be achieved with frida-trace:
 //      frida-trace -m "+[NSURL URLWithString:]" -m "-[NSURL initWithString:]" -U -f ${BUNDLE_ID}
+/* what about other selectors ?  The following pulled same results
+    -[NSURL initWithString:relativeToURL:]
+    +[NSURL URLWithString:relativeToURL:]
+*/
 
 import ObjC from "frida-objc-bridge";
 

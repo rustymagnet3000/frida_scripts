@@ -1,0 +1,3 @@
+/* watch files being opened on iOS */
+{ selector: '-[NSURL initFileURLWithPath:]', type: 'instance' },
+{ selector: '+[NSURL fileURLWithPath:]', type: 'class' }
