@@ -27,18 +27,19 @@ With Frida's TypeScript bindings, you do it differently; inside `package.json`:
   }
 }
 ```
-First, `frida-compile` to transpose the TypeScript to Javascript.  Then run the JavaScript file and passes in parameters. 
-
+1. `frida-compile` to transpile the TypeScript to JavaScript.
+2.  Run the dynamically generated JavaScript file on device.
+3.  The Frida script can now parse the parameters.
+ 
+  [More details](https://learnfrida.info/basic_usage/).
+- 
 ## TypeScript or JavaScript
 
- > ️️ℹ️ With Frida, TypeScript is used for development and code feedback ONLY.
+ > ️️ℹ️ TypeScript is used for development and code feedback with Frida.
 
 The Frida team recommend using the TypeScript bindings;
 compile time errors; faster debugging, code completion.
-When ready to run `frida`, the TypeScript files are transpiled to JavaScript files.
-The `frida-server` on the iOS / macOS device read the JavaScript file
-\[ never the TypeScript file \].  
-[More details](https://learnfrida.info/basic_usage/).
+
 
 ## Which Frida tool ?
 
