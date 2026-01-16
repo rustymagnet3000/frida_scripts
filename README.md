@@ -58,8 +58,10 @@ Within the IDE, if you download the `@types/frida-gum` extension
 
 ```shell
 
-# install to get Frida globals (ObjC, Interceptor, Module, etc.)
+# WebStorm and local knows about Frida Types
 npm install --save-dev typescript @types/frida-gum
+
+# install to get Frida globals (ObjC, Interceptor, Module, etc.)
 npm install --save-dev frida-objc-bridge
 
 # tool to convert files to Javascript for running
