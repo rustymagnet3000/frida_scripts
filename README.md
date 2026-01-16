@@ -8,11 +8,29 @@
   # grep          :   find app you care about
   # awk           :   extract the bundle ID
 export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
-
-# frida-server listening on iOS device
-# note: you don't pass in a .ts file to Frida
-frida -U -l scripts/_health.js -f $BUNDLE_ID
+ '{"className":"flo.foo_class","appName":"flo","logArgs":true,"maxLen":128}'
+ 
+ # set parameters you want to run inside Scripts
+ export FRIDA_PARAMS='{"className":"foobar.foo_class","appName":"foo","logArgs":true,"maxLen":128}'
 ```
+
+You probably did:
+```shell
+frida -U -l $SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS"
+```
+
+This is still valid.  But with Frida's Typescript bindings, you do it differently; so inside `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "frida-compile scripts/$SCRIPT_NAME.ts -o __$SCRIPT_NAME.js -c",
+    "agent": "frida -U -l __$SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS",
+    "start": "npm run build && npm run agent"
+  }
+}
+```
+Notice how it uses `frida-compile` to transpose the TypeScript to Javascript.  Then it runs the JavaScript file and passes in variables. 
 
 ## TypeScript or JavaScript
 
