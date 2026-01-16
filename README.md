@@ -8,18 +8,15 @@
   # grep          :   find app you care about
   # awk           :   extract the bundle ID
 export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
- '{"className":"flo.foo_class","appName":"flo","logArgs":true,"maxLen":128}'
- 
+
  # set parameters you want to run inside Scripts
  export FRIDA_PARAMS='{"className":"foobar.foo_class","appName":"foo","logArgs":true,"maxLen":128}'
+ 
+ # traditional way to run: still ok 
+ frida -U -l $SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS"
 ```
 
-You probably did:
-```shell
-frida -U -l $SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS"
-```
-
-This is still valid.  But with Frida's Typescript bindings, you do it differently; so inside `package.json`:
+With Frida's TypeScript bindings, you do it differently; inside `package.json`:
 
 ```json
 {
@@ -30,7 +27,7 @@ This is still valid.  But with Frida's Typescript bindings, you do it differentl
   }
 }
 ```
-Notice how it uses `frida-compile` to transpose the TypeScript to Javascript.  Then it runs the JavaScript file and passes in variables. 
+First, `frida-compile` to transpose the TypeScript to Javascript.  Then run the JavaScript file and passes in parameters. 
 
 ## TypeScript or JavaScript
 
