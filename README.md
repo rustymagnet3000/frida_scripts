@@ -9,21 +9,36 @@
   # awk           :   extract the bundle ID
 export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
 
-# frida-server listening on iOS device
-# note: you don't pass in a .ts file to Frida
-frida -U -l scripts/_health.js -f $BUNDLE_ID
+ # set parameters you want to run inside Scripts
+ export FRIDA_PARAMS='{"className":"foobar.foo_class","appName":"foo","logArgs":true,"maxLen":128}'
+ 
+ # traditional way to run: still ok 
+ frida -U -l $SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS"
 ```
+
+With Frida's TypeScript bindings, you do it differently; inside `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "frida-compile scripts/$SCRIPT_NAME.ts -o __$SCRIPT_NAME.js -c",
+    "agent": "frida -U -l __$SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS",
+    "start": "npm run build && npm run agent"
+  }
+}
+```
+
+1. `frida-compile` to transpile the TypeScript to JavaScript.
+2. Run the dynamically generated JavaScript file on device.
+3. The Frida script can now parse the parameters.
+4. [More details](https://learnfrida.info/basic_usage/).
 
 ## TypeScript or JavaScript
 
- > ️️ℹ️ With Frida, TypeScript is used for development and code feedback ONLY.
+ > ️️ℹ️ TypeScript is used for development and code feedback with Frida.
 
 The Frida team recommend using the TypeScript bindings;
 compile time errors; faster debugging, code completion.
-When ready to run `frida`, the TypeScript files are transpiled to JavaScript files.
-The `frida-server` on the iOS / macOS device read the JavaScript file
-\[ never the TypeScript file \].  
-[More details](https://learnfrida.info/basic_usage/).
 
 ## Which Frida tool ?
 
