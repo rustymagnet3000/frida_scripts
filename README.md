@@ -18,12 +18,11 @@ export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
 
 ## Which Frida tool ?
 
-With Frida's TypeScript bindings, you run things differently; other Frida tools are in play:
+With Frida's TypeScript bindings, you run other Frida tools:
 
 - **frida-objc-bridge**     -> let Typescript understand the Frida ObjC APIs
 - **frida-compile**         -> transform Typescript to Javascript files
 - **frida-gum**             -> tell Typescript about Frida Types
-
 
 ## How do I use these tools ?
 
