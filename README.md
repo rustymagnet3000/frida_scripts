@@ -16,7 +16,17 @@ export BUNDLE_ID=$(frida-ps -Uai | grep foo | awk '{print $3}')
  frida -U -l $SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS"
 ```
 
-With Frida's TypeScript bindings, you do it differently; inside `package.json`:
+## Which Frida tool ?
+
+With Frida's TypeScript bindings, you run other Frida tools:
+
+- **frida-objc-bridge**     -> let Typescript understand the Frida ObjC APIs
+- **frida-compile**         -> transform Typescript to Javascript files
+- **frida-gum**             -> tell Typescript about Frida Types
+
+## How do I use these tools ?
+
+inside `package.json`:
 
 ```json
 {
@@ -27,6 +37,8 @@ With Frida's TypeScript bindings, you do it differently; inside `package.json`:
   }
 }
 ```
+
+What is happening...
 
 1. `frida-compile` to transpile the TypeScript to JavaScript.
 2. Run the dynamically generated JavaScript file on device.
@@ -39,14 +51,6 @@ With Frida's TypeScript bindings, you do it differently; inside `package.json`:
 
 The Frida team recommend using the TypeScript bindings;
 compile time errors; faster debugging, code completion.
-
-## Which Frida tool ?
-
- A few new Frida tools are in play here:
-
-- **frida-gum**             -> tell Typescript about Frida Types
-- **frida-objc-bridge**     -> let Typescript understand the Frida ObjC APIs
-- **frida-compile**         -> transform Typescript to Javascript files
 
 ## WebStorm Troubleshooting
 

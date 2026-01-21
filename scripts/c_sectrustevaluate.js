@@ -2,6 +2,10 @@ const moduleName = 'Security';
 const functionName = 'SecTrustEvaluate';
 const SecTrustEvaluatePtr = Module.findExportByName(moduleName, functionName);
 
+
+// https://developer.apple.com/documentation/security/sectrustevaluate(_:_:)?language=objc
+// Evaluates trust for the specified certificate and policies.
+
 try {
     if (SecTrustEvaluatePtr == null) {
         throw '[*] %s not found', moduleName, functionName;

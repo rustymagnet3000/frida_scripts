@@ -4,7 +4,7 @@
   "description": "Transpile to JavaScript and run Frida scripts from Webstorm ( or terminal )",
   "main": "scripts/health.ts",
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "npx eslint ./scripts",
     "build": "frida-compile scripts/$SCRIPT_NAME.ts -o __$SCRIPT_NAME.js -c",
     "agent": "frida -U -l __$SCRIPT_NAME.js -f $BUNDLE_ID -- $FRIDA_PARAMS",
     "start": "npm run build && npm run agent"
