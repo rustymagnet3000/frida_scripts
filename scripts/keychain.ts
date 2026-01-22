@@ -1,3 +1,7 @@
+// gena → encrypted item key (never decryptable)
+// agrp → access group
+// pdmn → protection class
+// v_Data is the secret
 import ObjC from "frida-objc-bridge";
 
 if (!ObjC.available) {
